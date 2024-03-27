@@ -6,4 +6,5 @@ function add(X, Y) {
   // Return the result
   return sum;
 }
-
+// Export the add function
+module.exports = add;
