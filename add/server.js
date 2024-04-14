@@ -1,27 +1,32 @@
 const express = require('express');
 const app = express();
 
-// Import the add function from index.js
-const { add } = require('./index');
+app.use(express.json());
 
-// Endpoint to handle addition
-app.get('/add', (req, res) => {
-    // Extract X and Y values from the request query parameters
-    const { X, Y } = req.query;
+// Function to perform addition of two numbers
+function add(X, Y) {
+    // Calculate the sum
+    const sum = X + Y;
 
-    // Parse X and Y as numbers
-    const numX = parseFloat(X);
-    const numY = parseFloat(Y);
+    // Return the result
+    return sum;
+}
+
+app.post('/', (req, res) => {
+    const { X, Y } = req.body;
 
     // Call the add function with X and Y
-    const result = add(numX, numY);
+    const result = add(X, Y);
 
-    // Send the result as the response
-    res.json({ X: numX, Y: numY, Result: result });
+    const response = {
+        "X": X,
+        "Y": Y,
+        "Result": result
+    };
+
+    res.json(response);
 });
 
-// Start the server
-app.listen(3000, () => {
-    console.log('Server is up on port 3000');
+app.listen(8080, () => {
+    console.log('Server is up on 8080');
 });
-touch 
